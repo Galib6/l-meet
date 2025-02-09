@@ -13,13 +13,13 @@ import {
   VideoConference,
 } from '@livekit/components-react';
 import {
+  DeviceUnsupportedError,
   ExternalE2EEKeyProvider,
+  Room,
+  RoomConnectOptions,
   RoomOptions,
   VideoCodec,
   VideoPresets,
-  Room,
-  DeviceUnsupportedError,
-  RoomConnectOptions,
 } from 'livekit-client';
 import { useRouter } from 'next/navigation';
 import React from 'react';
@@ -146,7 +146,7 @@ function VideoConferenceComponent(props: {
               alert(
                 `You're trying to join an encrypted meeting, but your browser does not support it. Please update it to the latest version and try again.`,
               );
-              console.error(e);
+              // console.error(e);
             } else {
               throw e;
             }
@@ -167,11 +167,11 @@ function VideoConferenceComponent(props: {
   const router = useRouter();
   const handleOnLeave = React.useCallback(() => router.push('/'), [router]);
   const handleError = React.useCallback((error: Error) => {
-    console.error(error);
+    // console.error(error);
     alert(`Encountered an unexpected error, check the console logs for details: ${error.message}`);
   }, []);
   const handleEncryptionError = React.useCallback((error: Error) => {
-    console.error(error);
+    // console.error(error);
     alert(
       `Encountered an unexpected encryption error, check the console logs for details: ${error.message}`,
     );

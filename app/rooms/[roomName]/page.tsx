@@ -1,6 +1,5 @@
-import * as React from 'react';
-import { PageClientImpl } from './PageClientImpl';
 import { isVideoCodec } from '@/lib/types';
+import { PageClientImpl } from './PageClientImpl';
 
 export default function Page({
   params,

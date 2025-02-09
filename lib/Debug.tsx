@@ -1,9 +1,9 @@
-import * as React from 'react';
 import { useRoomContext } from '@livekit/components-react';
-import { setLogLevel, LogLevel, RemoteTrackPublication, setLogExtension } from 'livekit-client';
+import { LogLevel, RemoteTrackPublication, setLogExtension, setLogLevel } from 'livekit-client';
+import * as React from 'react';
 // @ts-ignore
-import { tinykeys } from 'tinykeys';
 import { datadogLogs } from '@datadog/browser-logs';
+import { tinykeys } from 'tinykeys';
 
 import styles from '../styles/Debug.module.css';
 
@@ -14,7 +14,7 @@ export const useDebugMode = ({ logLevel }: { logLevel?: LogLevel }) => {
     setLogLevel(logLevel ?? 'debug');
 
     if (process.env.NEXT_PUBLIC_DATADOG_CLIENT_TOKEN && process.env.NEXT_PUBLIC_DATADOG_SITE) {
-      console.log('setting up datadog logs');
+      // console.log('setting up datadog logs');
       datadogLogs.init({
         clientToken: process.env.NEXT_PUBLIC_DATADOG_CLIENT_TOKEN,
         site: process.env.NEXT_PUBLIC_DATADOG_SITE,
@@ -68,7 +68,7 @@ export const DebugMode = ({ logLevel }: { logLevel?: LogLevel }) => {
     if (window) {
       const unsubscribe = tinykeys(window, {
         'Shift+D': () => {
-          console.log('setting open');
+          // console.log('setting open');
           setIsOpen((open) => !open);
         },
       });
