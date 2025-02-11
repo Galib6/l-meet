@@ -51,14 +51,22 @@ export function PageClientImpl(props: {
   const handlePreJoinSubmit = React.useCallback(async (values: LocalUserChoices) => {
     setPreJoinChoices(values);
     const url = new URL(CONN_DETAILS_ENDPOINT, window.location.origin);
-    url.searchParams.append('roomName', props.roomName);
-    url.searchParams.append('participantName', values.username);
-    if (props.region) {
-      url.searchParams.append('region', props.region);
-    }
-    const connectionDetailsResp = await fetch(url.toString());
+    const connectionDetailsResp = await fetch(
+      'http://localhost:4000/api/v1/livekit/connection-details',
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          roomName: props.roomName,
+          participantName: values.username,
+          identity: crypto.getRandomValues(new Uint8Array(5)).join(''),
+        }),
+      },
+    );
     const connectionDetailsData = await connectionDetailsResp.json();
-    setConnectionDetails(connectionDetailsData);
+    setConnectionDetails(connectionDetailsData?.data);
   }, []);
   const handlePreJoinError = React.useCallback((e: any) => console.error(e), []);
 
